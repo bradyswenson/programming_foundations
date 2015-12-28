@@ -63,8 +63,6 @@ end
 loan_duration_months = loan_duration_years.to_i * 12
 mpr = (apr.to_f / 100) / 12
 
-binding.pry
-
 payment = (loan_amount.to_f * (mpr * ((1 + mpr) ** loan_duration_months))) / (((1 + mpr) ** loan_duration_months) - 1 )
 
 prompt("#{name}, you're monthly payment will be $#{payment.round(2)}.")
