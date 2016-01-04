@@ -1,6 +1,6 @@
-VALID_CHOICES = {'r' => 'rock', 'p' => 'paper', 'sc' => 'scissors',
-                 'l' => 'lizard', 'sp' => 'spock'}
-score = {player: 0, computer: 0, tie: 0}
+VALID_CHOICES = { 'r' => 'rock', 'p' => 'paper', 'sc' => 'scissors',
+                  'l' => 'lizard', 'sp' => 'spock' }
+score = { player: 0, computer: 0, tie: 0 }
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -46,10 +46,10 @@ end
 loop do
   choice = ''
   loop do
-   Kernel.puts("=> Choose one: (r)ock, (p)aper, (sc)issors, (l)izard, (sp)ock")
+    Kernel.puts("=> Choose one: (r)ock, (p)aper, (sc)issors, (l)izard, (sp)ock")
     choice = Kernel.gets().chomp()
 
-    if VALID_CHOICES.has_key?(choice)
+    if VALID_CHOICES.key?(choice)
       choice = VALID_CHOICES[choice]
       break
     else
