@@ -91,3 +91,37 @@ result = fib(0, 1)
 puts "result is #{result}"
 
 puts 'Question 8:'
+
+def titleize!(str)
+  str.split.each { |word| word.capitalize! }.join(' ')
+end
+
+puts titleize!('titleize this string please')
+
+
+puts 'Question 9:'
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+def add_age_group(group)
+  group.each do |member, info|
+    case info["age"]
+    when 0..17
+      info["age_group"] = "kid"
+    when 18..64
+      info["age_group"] = "adult"
+    else
+      info["age_group"] = "senior"
+    end
+  end
+end
+
+add_age_group(munsters)
+
+p munsters
