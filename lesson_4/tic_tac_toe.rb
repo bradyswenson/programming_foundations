@@ -33,7 +33,7 @@ def remaining_options(board)
 end
 
 def tally_score(winner, score)
-  score[winner.downcase.to_sym] +=1
+  score[winner.downcase.to_sym] += 1
 end
 
 def get_winner(board)
@@ -146,7 +146,6 @@ loop do # continue loop
   tally_score(winner, score)
   draw_board(board)
   display_result(winner, score)
-
   break unless play_again?
 end
 
