@@ -33,16 +33,14 @@ def remaining_options(board)
 end
 
 def tally_score(winner, score)
-  score[:player] += 1 if winner == 'Player'
-  score[:computer] += 1 if winner == 'Computer'
-  score[:tie] += 1 if winner == 'Tie'
+  score[winner.downcase.to_sym] +=1
 end
 
-def winner?(board)
+def winner(board)
   WINNING_COMBINATIONS.each do |combo|
-    if board.values_at(combo[0], combo[1], combo[2]).count('X') == 3
+    if board.values_at(*combo).count('X') == 3
       return 'Player'
-    elsif board.values_at(combo[0], combo[1], combo[2]).count('O') == 3
+    elsif board.values_at(*combo).count('O') == 3
       return 'Computer'
     elsif remaining_options(board) == []
       return 'Tie'
@@ -72,7 +70,7 @@ def alternate_player(current_player)
   end
 end
 
-def get_player_choice!(board)
+def do_player_choice!(board)
   player_choice = ''
   loop do
     puts "Please choose an unfilled position (1-9) to place your X:"
@@ -95,7 +93,7 @@ def check_computer_offense(board, combo)
   end
 end
 
-def get_computer_choice!(board)
+def do_computer_choice!(board)
   computer_choice = nil
 
   WINNING_COMBINATIONS.each do |combo|
@@ -117,13 +115,19 @@ def get_computer_choice!(board)
   board[computer_choice] = 'O'
 end
 
-def get_choice!(board, current_player)
+def make_move!(board, current_player)
   case current_player
   when 'player'
-    get_player_choice!(board)
+    do_player_choice!(board)
   when 'computer'
-    get_computer_choice!(board)
+    do_computer_choice!(board)
   end
+end
+
+def play_again?
+  puts "Do you want to play again? ('y' to continue)"
+  continue = gets.chomp
+  continue.downcase == 'y'
 end
 
 loop do # continue loop
@@ -133,20 +137,17 @@ loop do # continue loop
 
   loop do # game loop
     draw_board(board)
-    get_choice!(board, current_player)
+    make_move!(board, current_player)
     current_player = alternate_player(current_player)
-    winner = winner?(board)
-    break if winner == 'Player' || winner == 'Computer' || winner == 'Tie'
+    winner = winner(board)
+    break if %w(Player Computer Tie).include? winner
   end
 
   tally_score(winner, score)
   draw_board(board)
   display_result(winner, score)
 
-  puts "Do you want to play again? ('y' to continue)"
-  continue = gets.chomp
-
-  break if continue.downcase != 'y'
+  break unless play_again?
 end
 
 puts "Thanks for playing!"
