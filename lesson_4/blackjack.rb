@@ -20,16 +20,19 @@ def deal_card_to!(player_or_dealer, deck)
   player_or_dealer[:hand] << deck.pop
 end
 
-loop do
-  deck = new_deck
-  player = {hand: [], hand_total: 0}
-  dealer = {hand: [], hand_total: 0}
-
+def play_hand(player, dealer, deck)
   deal_card_to!(player, deck)
   deal_card_to!(dealer, deck)
+end
+
+loop do
+  player = {hand: [], hand_total: 0}
+  dealer = {hand: [], hand_total: 0}
+  deck = new_deck
+
+  play_hand(player, dealer, deck)
 
   p player[:hand]
   p dealer[:hand]
-
   break unless play_again?
 end
