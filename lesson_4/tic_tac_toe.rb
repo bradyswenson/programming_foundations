@@ -36,7 +36,7 @@ def tally_score(winner, score)
   score[winner.downcase.to_sym] +=1
 end
 
-def winner(board)
+def get_winner(board)
   WINNING_COMBINATIONS.each do |combo|
     if board.values_at(*combo).count('X') == 3
       return 'Player'
@@ -139,7 +139,7 @@ loop do # continue loop
     draw_board(board)
     make_move!(board, current_player)
     current_player = alternate_player(current_player)
-    winner = winner(board)
+    winner = get_winner(board)
     break if %w(Player Computer Tie).include? winner
   end
 
