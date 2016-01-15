@@ -1,7 +1,7 @@
 require 'pry'
 
 def raw_deck
-  (('2'..'10').to_a + ['Ace','King','Queen','Jack']) * 4
+  (('2'..'10').to_a + ['Ace', 'King', 'Queen', 'Jack']) * 4
 end
 
 def new_deck
@@ -40,7 +40,7 @@ def hand_total(hand)
   hand.each do |card|
     hand_total += 11 if card == 'Ace'
     hand_total += 10 if %w(King Queen Jack).include?(card)
-    hand_total += card.to_i if card.to_i.between?(2,10)
+    hand_total += card.to_i if card.to_i.between?(2, 10)
   end
   hand.count('Ace').times do
     hand_total -= 10 if hand_total > 21
@@ -96,8 +96,8 @@ def display_result(player, dealer)
 end
 
 loop do
-  player = {hand: []}
-  dealer = {hand: []}
+  player = { hand: [] }
+  dealer = { hand: [] }
   deck = new_deck
 
   deal_card!(player[:hand], deck)
