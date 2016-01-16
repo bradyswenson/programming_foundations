@@ -82,17 +82,13 @@ def do_dealer_turn!(dealer, deck)
 end
 
 def display_result(player, dealer)
-  if bust?(player[:hand])
-    puts "\nYou busted!"
-  elsif bust?(dealer[:hand])
-    puts "\nDealer busted. You win!"
-  elsif win?(player[:hand], dealer[:hand])
-    puts "\nYou win!"
-  elsif win?(dealer[:hand], player[:hand])
-    puts "\nYou lose."
-  elsif push?(dealer[:hand], player[:hand])
-    puts "\nPush."
-  end
+  puts case
+       when bust?(player[:hand]) then "\nYou busted!"
+       when bust?(dealer[:hand]) then "\nDealer busted. You win!"
+       when win?(player[:hand], dealer[:hand]) then "\nYou win!"
+       when win?(dealer[:hand], player[:hand]) then "\nYou lose."
+       when push?(dealer[:hand], player[:hand]) then "\nPush."
+       end
 end
 
 loop do
