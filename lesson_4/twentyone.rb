@@ -21,20 +21,22 @@ def deal_card!(hand, deck)
   hand << deck.shift
 end
 
+def show_hand(hand)
+  hand = hand.join(', ')
+  hand_total = hand_total(hand)
+  puts "Dealer has < #{hand} > for #{hand_total} points."
+end
+
 def display_cards(player, dealer, turn)
   system 'clear'
 
   if turn == :player
     puts "Dealer has < #{dealer[:hand].first}, ?? >."
   elsif turn == :dealer
-    dealer_hand = dealer[:hand].join(', ')
-    dealer_hand_total = hand_total(dealer[:hand])
-    puts "Dealer has < #{dealer_hand} > for #{dealer_hand_total} points."
+    show_hand(dealer[:hand])
   end
 
-  player_hand = player[:hand].join(', ')
-  player_hand_total = hand_total(player[:hand])
-  puts "You have < #{player_hand} > for #{player_hand_total} points."
+ show_hand(player[:hand])
 end
 
 def hand_total(hand)
@@ -102,6 +104,7 @@ end
 
 def update_win_count(player, dealer)
   player[:wins] = 0 && dealer[:wins] = 0 if dealer[:wins] == 5 || player[:wins] == 5
+
   player[:wins] += 1 if bust?(dealer[:hand]) || win?(player[:hand], dealer[:hand])
   dealer[:wins] += 1 if bust?(player[:hand]) || win?(dealer[:hand], player[:hand])
 end
