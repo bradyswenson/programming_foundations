@@ -1,5 +1,6 @@
 POINT_TARGET = 21
 DEALER_STAY = 17
+SERIES_TARGET = 3
 player = { hand: [], wins: 0 }
 dealer = { hand: [], wins: 0 }
 
@@ -101,7 +102,11 @@ def display_result(player, dealer)
 end
 
 def update_win_count(player, dealer)
-  player[:wins] = 0 && dealer[:wins] = 0 if dealer[:wins] == 5 || player[:wins] == 5
+  if dealer[:wins] == SERIES_TARGET || player[:wins] == SERIES_TARGET
+    player[:wins] = 0
+    dealer[:wins] = 0
+  end
+
   player[:wins] += 1 if bust?(dealer[:hand]) || win?(player[:hand], dealer[:hand])
   dealer[:wins] += 1 if bust?(player[:hand]) || win?(dealer[:hand], player[:hand])
 end
